@@ -1,0 +1,13 @@
+# Local credentials
+mqtt_01/config.h
+
+# Arduino build and editor files
+**/build/
+**/*.hex
+**/*.elf
+**/*.bin
+.vscode/
+
+# Operating-system files
+Thumbs.db
+Desktop.ini
