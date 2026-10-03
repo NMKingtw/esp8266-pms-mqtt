@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ESP8266 搭配 PMS5003 的 MQTT 空氣品質監測成果展示">
+  <title>ESP8266 × PMS5003 空氣品質物聯網</title>
+  <style>
+    :root { --ink:#17324d; --muted:#5d7183; --blue:#1167b1; --cyan:#20b9c7; --paper:#f5f9fc; --card:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif; line-height:1.75; }
+    .hero { color:#fff; background:linear-gradient(135deg,#083b66,#0b83a5 58%,#25c3b4); padding:72px 20px 86px; }
+    .wrap { max-width:1080px; margin:auto; }
+    .hero .wrap { display:grid; grid-template-columns:1.4fr .8fr; gap:40px; align-items:center; }
+    .eyebrow { letter-spacing:.14em; font-size:.82rem; opacity:.82; }
+    h1 { font-size:clamp(2.2rem,6vw,4.7rem); line-height:1.15; margin:12px 0 18px; }
+    h2 { font-size:clamp(1.6rem,3vw,2.4rem); margin:0 0 20px; }
+    h3 { margin:0 0 8px; }
+    .lead { font-size:1.15rem; max-width:650px; opacity:.92; }
+    .hero-card { background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); border-radius:24px; padding:24px; backdrop-filter:blur(8px); }
+    .hero-card strong { display:block; font-size:2.6rem; line-height:1.2; }
+    main { padding:56px 20px; }
+    section { margin-bottom:64px; }
+    .section-intro { color:var(--muted); max-width:720px; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .card { background:var(--card); border-radius:18px; padding:24px; box-shadow:0 8px 28px rgba(29,70,96,.08); }
+    .metric { font-size:2rem; color:var(--blue); font-weight:750; }
+    .gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    figure { margin:0; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(29,70,96,.1); }
+    figure img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+    figcaption { padding:12px 15px; color:var(--muted); font-size:.95rem; }
+    .wide { grid-column:span 2; }
+    .wide img { aspect-ratio:16/9; }
+    table { width:100%; border-collapse:collapse; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(29,70,96,.08); }
+    th,td { text-align:left; padding:14px 16px; border-bottom:1px solid #e8eff4; }
+    th { width:30%; color:var(--blue); background:#eff8fb; }
+    code { background:#edf4f7; padding:2px 7px; border-radius:6px; color:#0b5d78; }
+    .buttons { display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
+    .button { display:inline-block; padding:11px 18px; border-radius:999px; background:#fff; color:var(--blue); text-decoration:none; font-weight:700; }
+    .button.alt { background:var(--blue); color:#fff; }
+    footer { padding:28px 20px; text-align:center; color:var(--muted); background:#e9f2f6; }
+    @media (max-width:760px) { .hero .wrap,.grid,.gallery { grid-template-columns:1fr; } .wide { grid-column:auto; } .hero { padding-top:48px; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">物聯網通訊實務研習成果</div>
+        <h1>ESP8266 × PMS5003<br>空氣品質監測</h1>
+        <p class="lead">使用 HW628 / ESP8266 讀取懸浮微粒資料，透過 Wi‑Fi 與 MQTT 將 PM1.0、PM2.5、PM10 傳送到雲端主題。</p>
+        <div class="buttons"><a class="button" href="https://github.com/NMKingtw/esp8266-pms-mqtt">查看 GitHub 原始碼</a><a class="button alt" href="20261003物聯網通訊實務研習.docx">下載學習歷程</a></div>
+      </div>
+      <div class="hero-card"><span>核心成果</span><strong>每 10 秒</strong><span>發布一次空氣品質資料</span><hr><span>MQTT Topic</span><strong style="font-size:1.5rem">phmhs/aqi</strong></div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section>
+      <h2>專案摘要</h2>
+      <p class="section-intro">本專案完成從感測器接線、ESP8266 韌體開發、Wi‑Fi 連線到 MQTT 發布的完整流程。PMS5003 使用被動模式讀取 32 位元組封包，並以 JSON 格式傳送測量值。</p>
+      <div class="grid">
+        <div class="card"><div class="metric">PM1.0</div><h3>細懸浮微粒</h3><p>讀取並發布 PM1.0 濃度。</p></div>
+        <div class="card"><div class="metric">PM2.5</div><h3>主要監測指標</h3><p>適合用於空氣品質觀察。</p></div>
+        <div class="card"><div class="metric">PM10</div><h3>可吸入懸浮微粒</h3><p>與其他粒徑資料一併傳送。</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>成果照片</h2>
+      <div class="gallery">
+        <figure><img src="assets/photo_1.png" alt="ESP8266 與 PMS5003 實作照片"><figcaption>ESP8266 與 PMS5003 實體接線</figcaption></figure>
+        <figure><img src="assets/photo_2.png" alt="MQTT 空氣品質資料畫面"><figcaption>MQTT 空氣品質資料發布畫面</figcaption></figure>
+        <figure><img src="assets/photo_3.png" alt="專案實作成果照片"><figcaption>物聯網實作成果紀錄</figcaption></figure>
+        <figure class="wide"><img src="assets/system_architecture.png" alt="系統架構圖"><figcaption>系統架構：PMS5003 → HW628 / ESP8266 → Wi‑Fi → MQTT Broker</figcaption></figure>
+        <figure><img src="assets/data_flow.png" alt="資料流程圖"><figcaption>資料流程與錯誤值處理</figcaption></figure>
+      </div>
+    </section>
+    <section>
+      <h2>硬體與通訊設定</h2>
+      <table><tr><th>主控板</th><td>HW628 / ESP8266（NodeMCU 1.0）</td></tr><tr><th>感測器</th><td>Plantower PMS5003</td></tr><tr><th>UART</th><td>PMS5003 TXD → D6 / GPIO12；RXD → D5 / GPIO14</td></tr><tr><th>MQTT Broker</th><td><code>mqttgo.io:1883</code></td></tr><tr><th>資料主題</th><td><code>phmhs/aqi</code></td></tr><tr><th>資料格式</th><td><code>{"pm01":10,"pm25":15,"pm10":15}</code></td></tr></table>
+    </section>
+    <section class="card">
+      <h2>學習與除錯成果</h2>
+      <p>本次實作依序完成 LED 燒錄測試、Wi‑Fi 連線、MQTT 模擬資料發布，以及 PMS5003 實際封包解析。最後確認可穩定發布 PM1.0、PM2.5、PM10；PMS5003 不具備溫度與濕度功能，因此相關欄位以 <code>-1</code> 表示不適用。</p>
+      <div class="buttons"><a class="button alt" href="專案對話紀錄_20261003.md">查看專案紀錄</a><a class="button alt" href="mqtt_01/mqtt_01.ino">查看 MQTT 程式</a></div>
+    </section>
+  </main>
+  <footer>© 2026 NMKingtw · ESP8266 PMS5003 MQTT 空氣品質監測</footer>
+</body>
+</html>
